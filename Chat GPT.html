@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ChatGPT Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .chat-container {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .chat-log {
+            height: 300px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .user-input {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        #user-input {
+            flex: 1;
+            padding: 5px;
+        }
+
+        #send-button {
+            padding: 5px 10px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div id="chat-log" class="chat-log"></div>
+        <div class="user-input">
+            <input type="text" id="user-input" placeholder="Digite sua mensagem...">
+            <button id="send-button">Enviar</button>
+        </div>
+    </div>
+
+    <script>
+        const chatLog = document.getElementById("chat-log");
+        const userInput = document.getElementById("user-input");
+        const sendButton = document.getElementById("send-button");
+
+        sendButton.addEventListener("click", sendMessage);
+
+        function sendMessage() {
+            const userMessage = userInput.value;
+            if (userMessage.trim() === "") {
+                return;
+            }
+
+            const assistantResponse = "Resposta do Assistente: ..."; // Aqui você chamaria a API do GPT-3.5 para obter a resposta real
+
+            const now = new Date();
+            const formattedDate = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
+
+            const message = `
+                <div class="message user-message">
+                    <span class="timestamp">${formattedDate}</span>
+                    <p>${userMessage}</p>
+                </div>
+                <div class="message assistant-message">
+                    <span class="timestamp">${formattedDate}</span>
+                    <p>${assistantResponse}</p>
+                </div>
+            `;
+
+            chatLog.innerHTML += message;
+            userInput.value = "";
+
+            chatLog.scrollTop = chatLog.scrollHeight;
+        }
+    </script>
+</body>
+</html>
